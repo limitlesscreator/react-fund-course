@@ -1,10 +1,10 @@
 import React from 'react';
 import s from '../../../styles/MyButton.module.sass'
 
-export const MyButton = (props) => {
+export const MyButton = ({children, ...props}) => {
     return (
-        <button className={s.myBtn}>
-            Создать пост
+        <button {...props}  className={s.myBtn} >
+            {children}
         </button>
     );
 };
