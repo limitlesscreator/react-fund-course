@@ -9,7 +9,7 @@ export const PostList = (props) => {
             <h2 className={s.listPosts}>Список постов</h2>
             {props.posts.map((el) => {
                 return (
-                    <PostItem post={el}/>
+                    <PostItem post={el} removePost={props.removePost}/>
                 )
             })}
         </div>

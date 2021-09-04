@@ -1,33 +1,31 @@
 import s from './styles/App.module.sass'
 import {PostItem} from "./components/PostItem";
 
-import {useState} from "react";
+import {useRef, useState} from "react";
 import {PostList} from "./components/PostList";
 import {MyButton} from "./components/UI/button/MyButton";
 import {MyInput} from "./components/UI/input/MyInput";
+import {v1} from "uuid";
+import {PostForm} from "./components/PostForm";
 
 function App() {
     const [posts, setPosts] = useState([
-        {id: 1, title: 'Javascript', body: 'Description'},
-        {id: 2, title: 'React', body: 'Description'},
+        {id: v1(), title: 'Javascript', body: 'Description'},
+        {id: v1(), title: 'React', body: 'Description'},
     ])
-    const [title, setTitle] = useState('')
-
-    const addNewPost = (e) => {
-        e.preventDefault()
-        console.log('without useRef')
+    const callBackAddPost = (newObj) => {
+        setPosts([...posts, newObj])
     }
-    console.log(title)
+    const removePost = (id) => {
+        let filterPosts = posts.filter(el => el.id !== id)
+        setPosts(filterPosts)
+    }
 
     return (
         <div className={s.app}>
-            <form action="">
-                <MyInput type="text" placeholder={'Название поста'} value={title}
-                         onChange={(e) => setTitle(e.currentTarget.value)}/>
-                <MyInput type="text" placeholder={'Описание поста'}/>
-                <MyButton onClick={addNewPost}>Добавить пост</MyButton>
-            </form>
-            <PostList posts={posts}/>
+            <PostForm callBackAddPost={callBackAddPost}/>
+            <PostList posts={posts} removePost={removePost}/>
+            {posts.length === 0 && <div className={s.empty}>empty</div>}
         </div>
     );
 }
