@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import s from "../styles/App.module.sass";
 import {PostItem} from "./PostItem";
+import {v1} from "uuid";
 
 export const PostList = (props) => {
 
@@ -9,7 +10,7 @@ export const PostList = (props) => {
             <h2 className={s.listPosts}>Список постов</h2>
             {props.posts.map((el) => {
                 return (
-                    <PostItem post={el} removePost={props.removePost}/>
+                    <PostItem key={v1()} post={el} removePost={props.removePost}/>
                 )
             })}
         </div>
